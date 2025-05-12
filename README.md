@@ -2,6 +2,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Environment Setup
+
+This project uses the OpenAI API for the chatbot functionality. To set up your environment:
+
+1. Create a `.env.local` file in the root of the project
+2. Add your OpenAI API key to the file:
+
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+3. Replace `your_openai_api_key_here` with your actual API key from [OpenAI](https://platform.openai.com/api-keys)
+
+### Running the Development Server
+
 First, run the development server:
 
 ```bash
@@ -19,6 +34,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Features
+
+- OpenAI powered chatbot that responds to user messages
+- Chat interface with message history
+- Automatic input focus after receiving a response
 
 ## Learn More
 
