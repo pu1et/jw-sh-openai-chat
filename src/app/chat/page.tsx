@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import React from "react";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
 type Message = {
   id: string;
@@ -37,7 +37,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "안녕하세요! OpenAI로 구동되는 챗봇입니다. 어떤 질문이든 입력해 주세요. 한국어와 영어 모두 가능합니다.",
+      text: "안녕하세요! 자사몰 상품을 색깔 사이즈로 추천해줘요.",
       sender: "bot",
     },
   ]);

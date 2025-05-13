@@ -37,11 +37,9 @@ async function initializeOpenAI(): Promise<{
       });
 
       // Assistant 가져오기
-      console.log("Retrieving assistant");
       assistantInstance = await openaiInstance.beta.assistants.retrieve(
         "asst_5MZj2DoqGcOaoam4FjRHdeoE"
       );
-      console.log("Assistant retrieved:", assistantInstance.id);
 
       // 스레드 생성
       console.log("Creating thread");
@@ -120,31 +118,24 @@ export async function POST(request: Request) {
         content: lastUserMessage.text,
       });
 
+      console.log("Using Assistant :", assistant.id);
       // 실행 및 응답 대기
       let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
         assistant_id: assistant.id,
         instructions:
-          "당신은 친절하고 도움이 되는 AI 어시스턴트입니다. 간결하고 정확한 답변을 제공해주세요.",
+          "당신은 정확한 AI입니다. 모든 요청은 정확한 데이터에 의한 답변을 제공해주세요.",
       });
 
       let botMessage = "응답을 생성하지 못했습니다.";
 
       if (run.status === "completed") {
         const threadMessages = await openai.beta.threads.messages.list(
-          thread.id
+          run.thread_id
         );
-        const assistantMessage = threadMessages.data.find(
-          (msg) => msg.role === "assistant"
-        );
-
-        if (
-          assistantMessage &&
-          assistantMessage.content &&
-          assistantMessage.content.length > 0
-        ) {
-          const content = assistantMessage.content[0];
-          if (content.type === "text") {
-            botMessage = content.text.value;
+        for (const message of threadMessages.data.reverse()) {
+          console.log(`${message.role} > ${message.content[0]}`);
+          if (message.content[0].type == "text") {
+            botMessage = message.content[0].text.value;
           }
         }
       } else {
@@ -152,13 +143,6 @@ export async function POST(request: Request) {
       }
 
       console.log("Assistant response:", botMessage);
-
-      // 응답 로깅 - 줄바꿈 문자 확인
-      console.log("Response contains newlines:", botMessage.includes("\n"));
-      console.log(
-        "Response with escaped newlines:",
-        JSON.stringify(botMessage)
-      );
 
       return NextResponse.json({ message: botMessage });
     } catch (assistantError) {
