@@ -5,12 +5,11 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
+    authorized({ auth, request }) {
       const isLoggedIn = !!auth?.user;
-      const isOnChat = nextUrl.pathname.startsWith('/chat');
-      if (isOnChat) {
-        return isLoggedIn;
-      }
+      const isProtectedRoute = request.nextUrl.pathname.startsWith('/chat');
+
+      if (isProtectedRoute && !isLoggedIn) return false;
       return true;
     },
   },
