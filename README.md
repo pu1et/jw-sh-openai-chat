@@ -15,6 +15,16 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 3. Replace `your_openai_api_key_here` with your actual API key from [OpenAI](https://platform.openai.com/api-keys)
 
+**중요 참고사항:**
+
+- Next.js는 `.env.local` 파일을 자동으로 로드합니다
+- 서버를 재시작해야 변경사항이 적용됩니다
+- 환경 변수가 로드되지 않는 경우 다음 방법을 시도해보세요:
+  ```bash
+  # 터미널에서 직접 환경 변수 설정 후 실행
+  OPENAI_API_KEY=your_key_here npm run dev
+  ```
+
 ### Running the Development Server
 
 First, run the development server:

@@ -1,12 +1,37 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import React from "react";
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   id: string;
   text: string;
   sender: "user" | "bot";
 };
+
+// 일반 텍스트 컴포넌트 (사용자 메시지용)
+function PlainText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("\n").map((line, i) => (
+        <React.Fragment key={i}>
+          {line}
+          {i < text.split("\n").length - 1 && <br />}
+        </React.Fragment>
+      ))}
+    </>
+  );
+}
+
+// 마크다운 컴포넌트 (봇 메시지용)
+function MarkdownText({ text }: { text: string }) {
+  return (
+    <div className="markdown-message">
+      <ReactMarkdown>{text}</ReactMarkdown>
+    </div>
+  );
+}
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([
@@ -113,7 +138,11 @@ export default function ChatPage() {
                   : "bg-gray-200 text-gray-800"
               }`}
             >
-              {message.text}
+              {message.sender === "bot" ? (
+                <MarkdownText text={message.text} />
+              ) : (
+                <PlainText text={message.text} />
+              )}
             </div>
           </div>
         ))}

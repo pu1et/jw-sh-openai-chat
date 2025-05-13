@@ -2,14 +2,96 @@ import { OpenAI } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { NextResponse } from "next/server";
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// API 키 확인을 위한 헬퍼 함수
+function getApiKey(): string | undefined {
+  // 다양한 방법으로 API 키 확인
+  return process.env.OPENAI_API_KEY;
+}
+
+// 서버 시작시 한 번만 경고 출력
+if (!getApiKey()) {
+  console.error(
+    "WARNING: OpenAI API key is not configured. Please set OPENAI_API_KEY in your environment."
+  );
+}
+
+// 싱글톤 인스턴스 관리
+let openaiInstance: OpenAI | null = null;
+let assistantInstance: any = null;
+let threadInstance: any = null;
+
+// OpenAI 클라이언트와 스레드를 초기화하는 함수
+async function initializeOpenAI(): Promise<{
+  openai: OpenAI | null;
+  assistant: any | null;
+  thread: any | null;
+}> {
+  const apiKey = getApiKey();
+
+  if (!openaiInstance && apiKey) {
+    console.log("Creating new OpenAI instance with API key");
+    try {
+      // OpenAI 인스턴스 생성
+      openaiInstance = new OpenAI({
+        apiKey: apiKey,
+      });
+
+      // Assistant 가져오기
+      console.log("Retrieving assistant");
+      assistantInstance = await openaiInstance.beta.assistants.retrieve(
+        "asst_5MZj2DoqGcOaoam4FjRHdeoE"
+      );
+      console.log("Assistant retrieved:", assistantInstance.id);
+
+      // 스레드 생성
+      console.log("Creating thread");
+      threadInstance = await openaiInstance.beta.threads.create();
+      console.log("Thread created:", threadInstance.id);
+    } catch (error) {
+      console.error("Error initializing OpenAI:", error);
+      return { openai: null, assistant: null, thread: null };
+    }
+  }
+
+  return {
+    openai: openaiInstance,
+    assistant: assistantInstance,
+    thread: threadInstance,
+  };
+}
 
 export async function POST(request: Request) {
   try {
-    const { messages } = await request.json();
+    const apiKey = getApiKey();
+
+    // API 키가 없으면 에러 응답
+    if (!apiKey) {
+      console.error("API key is missing in request handler");
+      return NextResponse.json(
+        {
+          error:
+            "OpenAI API key is not configured. Please check your environment setup.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // OpenAI, Assistant, Thread 인스턴스 초기화
+    const { openai, assistant, thread } = await initializeOpenAI();
+
+    if (!openai || !assistant || !thread) {
+      return NextResponse.json(
+        { error: "Failed to initialize OpenAI resources" },
+        { status: 500 }
+      );
+    }
+
+    // 클라이언트에서 보낸 데이터 파싱
+    const body = await request.json();
+    console.log("Request body:", body);
+
+    // messages 배열 확인
+    const { messages } = body;
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
@@ -18,37 +100,90 @@ export async function POST(request: Request) {
       );
     }
 
-    // Format messages for OpenAI API
-    const formattedMessages: ChatCompletionMessageParam[] = messages.map(
-      (msg) => ({
-        role: msg.sender === "user" ? "user" : "assistant",
-        content: msg.text,
-      })
-    );
+    console.log("Using OpenAI Assistants API");
 
-    // Add system message at the beginning
-    formattedMessages.unshift({
-      role: "system",
-      content:
-        "당신은 친절하고 도움이 되는 AI 어시스턴트입니다. 간결하고 정확한 답변을 제공해주세요.",
-    });
+    try {
+      // 마지막 사용자 메시지 추출 (마지막 메시지가 사용자 메시지라고 가정)
+      const lastUserMessage = messages
+        .filter((msg) => msg.sender === "user")
+        .pop();
 
-    // Call OpenAI API
-    const response = await openai.chat.completions.create({
-      model: "gpt-4.1",
-      messages: formattedMessages,
-      temperature: 0.0,
-      max_tokens: 200,
-    });
+      if (!lastUserMessage) {
+        throw new Error("No user message found");
+      }
 
-    // Extract the bot's message
-    const botMessage = response.choices[0].message.content;
+      console.log("Last user message:", lastUserMessage.text);
 
-    return NextResponse.json({ message: botMessage });
+      // 사용자 메시지 추가 (기존 스레드 재사용)
+      await openai.beta.threads.messages.create(thread.id, {
+        role: "user",
+        content: lastUserMessage.text,
+      });
+
+      // 실행 및 응답 대기
+      let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
+        assistant_id: assistant.id,
+        instructions:
+          "당신은 친절하고 도움이 되는 AI 어시스턴트입니다. 간결하고 정확한 답변을 제공해주세요.",
+      });
+
+      let botMessage = "응답을 생성하지 못했습니다.";
+
+      if (run.status === "completed") {
+        const threadMessages = await openai.beta.threads.messages.list(
+          thread.id
+        );
+        const assistantMessage = threadMessages.data.find(
+          (msg) => msg.role === "assistant"
+        );
+
+        if (
+          assistantMessage &&
+          assistantMessage.content &&
+          assistantMessage.content.length > 0
+        ) {
+          const content = assistantMessage.content[0];
+          if (content.type === "text") {
+            botMessage = content.text.value;
+          }
+        }
+      } else {
+        console.log("Run status:", run.status);
+      }
+
+      console.log("Assistant response:", botMessage);
+
+      // 응답 로깅 - 줄바꿈 문자 확인
+      console.log("Response contains newlines:", botMessage.includes("\n"));
+      console.log(
+        "Response with escaped newlines:",
+        JSON.stringify(botMessage)
+      );
+
+      return NextResponse.json({ message: botMessage });
+    } catch (assistantError) {
+      console.error("Error using Assistants API:", assistantError);
+      return NextResponse.json(
+        {
+          message:
+            "Assistant API 오류가 발생했습니다: " +
+            (assistantError instanceof Error
+              ? assistantError.message
+              : String(assistantError)),
+          error: true,
+        },
+        { status: 500 }
+      );
+    }
   } catch (error: any) {
     console.error("Error calling OpenAI:", error);
     return NextResponse.json(
-      { error: error.message || "Error calling OpenAI API" },
+      {
+        message:
+          "죄송합니다. 서버 오류가 발생했습니다: " +
+          (error.message || "Error calling OpenAI API"),
+        error: true,
+      },
       { status: 500 }
     );
   }

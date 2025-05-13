@@ -24,3 +24,83 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 마크다운 스타일링 */
+.markdown-message {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.markdown-message p {
+  margin: 0.5em 0;
+}
+
+.markdown-message p:first-child {
+  margin-top: 0;
+}
+
+.markdown-message p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-message h1,
+.markdown-message h2,
+.markdown-message h3,
+.markdown-message h4,
+.markdown-message h5,
+.markdown-message h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.markdown-message h1 {
+  font-size: 1.5em;
+}
+
+.markdown-message h2 {
+  font-size: 1.3em;
+}
+
+.markdown-message h3 {
+  font-size: 1.1em;
+}
+
+.markdown-message ul,
+.markdown-message ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.markdown-message ul {
+  list-style-type: disc;
+}
+
+.markdown-message ol {
+  list-style-type: decimal;
+}
+
+.markdown-message li {
+  margin: 0.25em 0;
+}
+
+.markdown-message code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.markdown-message pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.5em;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.markdown-message pre code {
+  background-color: transparent;
+  padding: 0;
+  display: block;
+}
