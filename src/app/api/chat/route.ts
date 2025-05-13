@@ -1,5 +1,4 @@
 import { OpenAI } from "openai";
-import { ChatCompletionMessageParam } from "openai/resources";
 import { NextResponse } from "next/server";
 
 // API 키 확인을 위한 헬퍼 함수
@@ -122,13 +121,12 @@ export async function POST(request: Request) {
       // 실행 및 응답 대기
       let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
         assistant_id: assistant.id,
-        instructions:
-          "당신은 정확한 AI입니다. 모든 요청은 정확한 데이터에 의한 답변을 제공해주세요.",
       });
 
       let botMessage = "응답을 생성하지 못했습니다.";
 
       if (run.status === "completed") {
+        console.log("Run with instructions : " + run.instructions);
         const threadMessages = await openai.beta.threads.messages.list(
           run.thread_id
         );
