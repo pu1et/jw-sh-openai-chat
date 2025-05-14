@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Message = {
   id: string;
@@ -13,22 +14,82 @@ type Message = {
 // 일반 텍스트 컴포넌트 (사용자 메시지용)
 function PlainText({ text }: { text: string }) {
   return (
-    <>
+    <div className="text-left">
       {text.split("\n").map((line, i) => (
         <React.Fragment key={i}>
           {line}
           {i < text.split("\n").length - 1 && <br />}
         </React.Fragment>
       ))}
-    </>
+    </div>
   );
 }
 
 // 마크다운 컴포넌트 (봇 메시지용)
 function MarkdownText({ text }: { text: string }) {
   return (
-    <div className="markdown-message">
-      <ReactMarkdown>{text}</ReactMarkdown>
+    <div className="markdown-message text-left">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          p: ({ children }) => <p className="mb-2">{children}</p>,
+          ul: ({ children }) => (
+            <ul className="list-disc pl-4 mb-2">{children}</ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="list-decimal pl-4 mb-2">{children}</ol>
+          ),
+          li: ({ children }) => <li className="mb-1">{children}</li>,
+          table: ({ children }) => (
+            <div className="overflow-x-auto my-4">
+              <table className="border-collapse border border-gray-300 w-full">
+                {children}
+              </table>
+            </div>
+          ),
+          thead: ({ children }) => (
+            <thead className="bg-gray-100">{children}</thead>
+          ),
+          tbody: ({ children }) => <tbody>{children}</tbody>,
+          tr: ({ children }) => (
+            <tr className="border-b border-gray-300">{children}</tr>
+          ),
+          th: ({ children }) => (
+            <th className="border border-gray-300 px-2 py-1 text-left">
+              {children}
+            </th>
+          ),
+          td: ({ children }) => (
+            <td className="border border-gray-300 px-2 py-1">{children}</td>
+          ),
+          a: ({ node, href, children, ...props }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+              {...props}
+            >
+              {children}
+            </a>
+          ),
+          code: ({ node, inline, className, children, ...props }: any) => {
+            return inline ? (
+              <code className="bg-gray-100 px-1 rounded text-sm" {...props}>
+                {children}
+              </code>
+            ) : (
+              <pre className="bg-gray-100 p-2 rounded overflow-x-auto">
+                <code className="text-sm" {...props}>
+                  {children}
+                </code>
+              </pre>
+            );
+          },
+        }}
+      >
+        {text}
+      </ReactMarkdown>
     </div>
   );
 }
@@ -120,7 +181,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-2xl mx-auto p-4">
+    <div className="flex flex-col h-screen max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-6">OpenAI 챗봇</h1>
 
       <div className="flex-1 overflow-y-auto mb-4 border border-gray-200 rounded-lg p-4">
@@ -132,11 +193,11 @@ export default function ChatPage() {
             }`}
           >
             <div
-              className={`inline-block rounded-lg py-2 px-4 max-w-[80%] ${
+              className={`inline-block rounded-lg py-2 px-4 max-w-[80%] chat-bubble ${
                 message.sender === "user"
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-800"
-              }`}
+              } ${message.sender === "bot" ? "w-full md:w-auto" : ""}`}
             >
               {message.sender === "bot" ? (
                 <MarkdownText text={message.text} />

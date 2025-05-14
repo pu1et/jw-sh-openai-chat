@@ -25,14 +25,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* 채팅 관련 스타일링 */
+.chat-bubble {
+  text-align: left !important;
+}
+
 /* 마크다운 스타일링 */
 .markdown-message {
   white-space: pre-wrap;
   word-break: break-word;
+  text-align: left !important;
 }
 
 .markdown-message p {
   margin: 0.5em 0;
+  text-align: left !important;
 }
 
 .markdown-message p:first-child {

@@ -245,9 +245,9 @@ export default function TestPage() {
                         <td className="py-2 px-4 border-b text-sm text-center align-middle break-words">
                           {result.question}
                         </td>
-                        <td className="py-2 px-4 border-b text-sm text-center">
-                          <div className="max-h-60 overflow-y-auto">
-                            <div className="text-left inline-block">
+                        <td className="py-2 px-4 border-b text-sm text-center align-middle">
+                          <div className="max-h-60 overflow-y-auto mx-auto">
+                            <div className="text-left inline-block markdown-message">
                               <ReactMarkdown>
                                 {result.ai_response}
                               </ReactMarkdown>
