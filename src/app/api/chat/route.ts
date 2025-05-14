@@ -126,7 +126,6 @@ export async function POST(request: Request) {
       let botMessage = "응답을 생성하지 못했습니다.";
 
       if (run.status === "completed") {
-        console.log("Run with instructions : " + run.instructions);
         const threadMessages = await openai.beta.threads.messages.list(
           run.thread_id
         );

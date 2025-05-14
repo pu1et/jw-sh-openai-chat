@@ -1,0 +1,82 @@
+[
+  {
+    "question": "난 여자, 사이즈는 M 입어. 무신사 오버핏이 딱 맞아. 사이즈 비슷한 흰색 옷 5개 추천해줘",
+    "correct_answer": "| 상품 이름 | 성별 | 색상 | 추천사이즈 | 링크 | |-----------|------|------|-------------|------| | 여성 베이직 반팔티셔츠 | 여성 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88811-WH) | | 여성 로고 프린트 오버핏 반팔티셔츠 | 여성 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88821-WH) | | 여성 심플 크루넥 반팔티셔츠 | 여성 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88831-WH) | | 변형로고 전판프린트 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88841-CR) | | 로고 오버핏 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88851-WH) |",
+    "keywords": [
+      "여성 베이직 반팔티셔츠",
+      "DWRT88811-WH",
+      "여성 로고 프린트 오버핏 반팔티셔츠",
+      "DWRT88821-WH",
+      "여성 심플 크루넥 반팔티셔츠",
+      "DWRT88831-WH",
+      "변형로고 전판프린트 반팔티셔츠",
+      "DWRT88841-CR",
+      "로고 오버핏 반팔티셔츠",
+      "DWRT88851-WH"
+    ]
+  },
+  {
+    "question": "남자, L 사이즈, 검은색 옷 5개 추천해줘. 아래 사이즈랑 비슷한 상품을 찾고, 사이즈 작은 순으로 알려줘",
+    "correct_answer": "| 상품 이름 | 성별 | 색상 | 추천사이즈 | 링크 | |-----------|------|------|-------------|------| | 남성 베이직 반팔티셔츠 | 남성 | 블랙 | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88911-BK) | | 남성 로고 프린트 오버핏 반팔티셔츠 | 남성 | 블랙 | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88921-BK) | | 남성 심플 크루넥 반팔티셔츠 | 남성 | 블랙 | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88931-BK) | | 변형로고 전판프린트 반팔티셔츠 | 남녀공용 | 블랙 | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88941-BK) | | 로고 오버핏 반팔티셔츠 | 남녀공용 | 블랙 | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88951-BK) |",
+    "keywords": [
+      "남성 베이직 반팔티셔츠",
+      "DWRT88911-BK",
+      "남성 로고 프린트 오버핏 반팔티셔츠",
+      "DWRT88921-BK",
+      "남성 심플 크루넥 반팔티셔츠",
+      "DWRT88931-BK",
+      "변형로고 전판프린트 반팔티셔츠",
+      "DWRT88941-BK",
+      "로고 오버핏 반팔티셔츠",
+      "DWRT88951-BK"
+    ]
+  },
+  {
+    "question": "난 여자고 스파오에 레귤러핏 L이 컸어. 흰색 반팔티 5개 추천해줘.",
+    "correct_answer": "| 상품 이름 | 성별 | 색상 | 추천사이즈 | 링크 | |-----------|------|------|-------------|------| | 여성 베이직 반팔티셔츠 | 여성 | 화이트 | 90 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88811-WH) | | 여성 로고 프린트 오버핏 반팔티셔츠 | 여성 | 화이트 | 90 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88821-WH) | | 여성 심플 크루넥 반팔티셔츠 | 여성 | 화이트 | 90 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88831-WH) | | 변형로고 전판프린트 반팔티셔츠 | 남녀공용 | 화이트 | 90 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88841-CR) | | 로고 오버핏 반팔티셔츠 | 남녀공용 | 화이트 | 90 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88851-WH) |",
+    "keywords": [
+      "여성 베이직 반팔티셔츠",
+      "DWRT88811-WH",
+      "여성 로고 프린트 오버핏 반팔티셔츠",
+      "DWRT88821-WH",
+      "여성 심플 크루넥 반팔티셔츠",
+      "DWRT88831-WH",
+      "변형로고 전판프린트 반팔티셔츠",
+      "DWRT88841-CR",
+      "로고 오버핏 반팔티셔츠",
+      "DWRT88851-WH"
+    ]
+  },
+  {
+    "question": "탑텐 오버핏 L 사이즈와 비슷한 남자 블랙 티셔츠 5개 추천해줘",
+    "correct_answer": "| 상품 이름 | 성별 | 색상 | 사이즈 | 링크 | |-----------|------|------|--------|------| | 프레시벤트 그래픽 반팔티셔츠 | 남녀공용 | BLACK | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DXRS8C043-BKS) | | 아웃도어 우븐 남성 긴팔티셔츠 | 남성 | BLACK | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DMRL3M021-BKS) | | [QA] 테드 스몰로고 남성 카라티 | 남성 | BLACK | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DMTS71033-BKS) | | 로건 맨투맨 | 남녀공용 | BLACK | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DXMT31034-BKS) | | 플리스 반집 후디 | 남녀공용 | BLACK | 100 | [링크](https://www.stg.discovery-expedition.com/product-detail/DMHD61961-BK) |",
+    "keywords": [
+      "프레시벤트 그래픽 반팔티셔츠",
+      "DXRS8C043-BKS",
+      "아웃도어 우븐 남성 긴팔티셔츠",
+      "DMRL3M021-BKS",
+      "[QA] 테드 스몰로고 남성 카라티",
+      "DMTS71033-BKS",
+      "로건 맨투맨",
+      "DXMT31034-BKS",
+      "플리스 반집 후디",
+      "DMHD61961-BK"
+    ]
+  },
+  {
+    "question": "탑텐 레귤러핏 M 사이즈와 비슷한 남녀공용 티셔츠 흰색 5개 추천해줘.",
+    "correct_answer": "| 상품 이름 | 성별 | 색상 | 추천사이즈 | 링크 | |-----------|------|------|-------------|------| | 변형로고 전판프린트 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88841-CR) | | 로고 오버핏 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88851-WH) | | 심플 로고 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88861-WH) | | 베이직 크루넥 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88871-WH) | | 오리지널 로고 반팔티셔츠 | 남녀공용 | 화이트 | 95 | [링크](https://www.stg.discovery-expedition.com/product-detail/DWRT88881-WH) |",
+    "keywords": [
+      "변형로고 전판프린트 반팔티셔츠",
+      "DWRT88841-CR",
+      "로고 오버핏 반팔티셔츠",
+      "DWRT88851-WH",
+      "심플 로고 반팔티셔츠",
+      "DWRT88861-WH",
+      "베이직 크루넥 반팔티셔츠",
+      "DWRT88871-WH",
+      "오리지널 로고 반팔티셔츠",
+      "DWRT88881-WH"
+    ]
+  }
+]
